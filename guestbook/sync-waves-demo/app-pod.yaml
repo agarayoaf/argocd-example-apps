@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-app-pod
+  namespace: default
+  annotations:
+    argocd.argoproj.io/sync-wave: "5" # Oleada positiva: créate después del ConfigMap
+spec:
+  containers:
+  - name: my-app
+    image: busybox:1.35
+    command: ["/bin/sh", "-c", "echo 'Reading config...'; sleep 1; echo $GREETING_MESSAGE; sleep 3600"]
+    env:
+      - name: GREETING_MESSAGE
+        valueFrom:
+          configMapKeyRef:
+            name: my-app-config # Dependencia del ConfigMap
+            key: MESSAGE
