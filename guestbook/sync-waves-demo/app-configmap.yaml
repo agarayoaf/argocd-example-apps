@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-app-config
+  namespace: default 
+  annotations:
+    argocd.argoproj.io/sync-wave: "-5" # Oleada negativa: créate de los primeros
+data:
+  MESSAGE: "Hello from the ConfigMap!"
